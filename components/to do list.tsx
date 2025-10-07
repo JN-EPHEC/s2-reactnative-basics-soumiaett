@@ -1,32 +1,32 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { AppRegistry, FlatList, StyleSheet, View } from 'react-native';
+import TodoItem from './components/TodoItem';
 
-type Props = {
-  text: string;
-};
+const todos = [
+  { id: '1', text: 'Apprendre TypeScript' },
+  { id: '2', text: 'Créer une app React Native' },
+  { id: '3', text: 'Boire un café ☕' },
+];
 
-const TodoItem = ({ text }: Props) => {
+const App = () => {
   return (
-    <View style ={styles.item}>
-      <Text style={styles.itemText}>{text}</Text>
+    <View style={styles.container}>
+      <FlatList
+        data={todos}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => <TodoItem text={item.text} />}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  item: {
-    backgroundColor: '#f2f2f2',
-    padding: 15,
-    marginBottom: 10,
-    borderRadius: 10,
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 4,
-  },
-  itemText: {
-    fontSize: 16,
-    color: '#333',
+  container: {
+    flex: 1,
+    paddingTop: 50,
+    paddingHorizontal: 20,
+    backgroundColor: '#fff',
   },
 });
 
-export default TodoItem;
+AppRegistry.registerComponent('main', () => App);
+export default App;
